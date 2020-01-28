@@ -4,5 +4,14 @@
   "main": "index.js",
   "repository": "git@github.com:Sobral/bootcamp-gostack-desafio-01.git",
   "author": "Luciano Sobral <sobral.luciano@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
