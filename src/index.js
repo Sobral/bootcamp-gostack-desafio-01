@@ -17,8 +17,16 @@ function checkId(req, res, next){
   next();
 }
 
+function checkTitle(req, res, next){
+  const {title} = req.body;
+  if(!title){
+    return res.status(400).json({message:"Project Title is required!"});
+  }
+  next();
+}
+
 //Adiciona novo projeto a base de projetos
-app.post('/projects', checkId,(req, res)=>{
+app.post('/projects', checkId, checkTitle, (req, res)=>{
   const project = req.body;
   projects.push(project);
   return res.status(201).json(projects);
