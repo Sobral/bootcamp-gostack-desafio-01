@@ -25,6 +25,14 @@ function checkTitle(req, res, next){
   next();
 }
 
+function checkTasks(req, res, next){
+  const tasks = req.body;
+  if(!tasks){
+    req.body.tasks = []
+  }
+  next();
+}
+
 //Adiciona novo projeto a base de projetos
 app.post('/projects', checkId, checkTitle, (req, res)=>{
   const project = req.body;
@@ -42,7 +50,7 @@ app.put('/projects/:id', checkTitle, (req, res)=>{
   const {id} = req.params;
   const {title} = req.body;
 
-  if(projects.length < 1) {return res.status(204).send();}
+  if(projects.length < id) {return res.status(204).send();}
 
   const temp = projects.filter(a => a.id == id);
  
@@ -72,6 +80,22 @@ app.delete('/projects/:id', (req, res)=>{
 
   return res.status(204).send();
   
+});
+
+app.post('/projects/:id/tasks', checkTitle, checkTasks, (req, res)=>{
+  const {id} = req.params;
+  const {title} = req.body; 
+
+  if(projects.length < id) {return res.status(204).send();}
+
+  const temp = projects.filter(a => a.id == id);
+ 
+  if(!temp){
+    return res.status(204);
+  }
+  const index = projects.indexOf(temp[0]);
+  projects[index].tasks.push(title);
+  return res.json(projects);
 });
 
 app.listen(PORT);
