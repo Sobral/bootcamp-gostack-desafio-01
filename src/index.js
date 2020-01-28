@@ -32,5 +32,10 @@ app.post('/projects', checkId, checkTitle, (req, res)=>{
   return res.status(201).json(projects);
 });
 
+//Lista todos os projetos existentes
+app.get('/projects', (req, res)=>{
+  return res.json(projects);
+});
+
 app.listen(PORT);
-console.log(`Server is up using PORT ${PORT}`);
+console.log(`Server is running in PORT ${PORT}`);
