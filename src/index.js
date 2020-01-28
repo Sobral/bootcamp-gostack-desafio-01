@@ -37,5 +37,22 @@ app.get('/projects', (req, res)=>{
   return res.json(projects);
 });
 
+app.put('/projects/:id', checkTitle, (req, res)=>{
+  
+  const {id} = req.params;
+  const {title} = req.body;
+
+  if(projects.length < 1) {return res.status(204).send();}
+
+  const temp = projects.filter(a => a.id == id);
+ 
+  if(!temp){
+    return res.status(204);
+  }
+  const index = projects.indexOf(temp[0]);
+  projects[index].title = title;
+  return res.json(projects);
+  
+});
 app.listen(PORT);
 console.log(`Server is running in PORT ${PORT}`);
